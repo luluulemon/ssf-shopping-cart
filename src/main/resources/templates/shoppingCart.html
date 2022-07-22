@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>My e-Commerce Store</h1>
+    <h2>Login</h2>
+
+    <form  
+    action="#"
+    th:action="@{/mycart}"
+
+    method="post" 
+        >
+        <p>
+            Username:
+            <input type="text" th:field="${Shoppingcart.Username}"
+                placeholder="Pls enter Username"/>
+
+            <input type="submit" value="Log In"/>
+        </p>
+    </form>
+
+    <form   th:action="@{/mycartadd}"
+            th:object="${Shoppingcart}"  >
+        <p>
+            Name:
+            <input type="text" th:field="*{Username}"/>
+        </p>
+        <p>
+            Item:
+            <input type="text" th:field="*{GroceryItem}"/>
+        </p>
+            <input type="submit" value="Add item"/>
+    </form>
+    <table th:object="${Shoppingcart}">
+        <tr data-th-each="item: *{Cart}"> <!-- Accessing List in ShoppingCart object-->
+            <td th:text="${item}"></td>
+            <td> <a th:href="@{/mycartedit/{id}(id=${item})}"><button> Edit </button></td>
+            <td>  <a th:href="@{/mycartdelete/{id}(id=${item})}"><button> Delete </button> </a>
+            <td>  <a th:href="@{/mycartarrange/{id}(id=${item})}"><button> MOVE UP </button> </a>
+        </tr>
+    </table>
+</body>
+</html>
